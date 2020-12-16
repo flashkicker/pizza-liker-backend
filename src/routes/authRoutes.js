@@ -9,6 +9,10 @@ const router = express.Router()
 router.post("/signup", async (req, res) => {
 	const { username, password } = req.body
 
+	if (!username || !password) {
+		return res.status(422).send({ error: "Must provide username and password" })
+	}
+
 	const user = {
 		username,
 		password: bcrypt.hashSync(password, 10),
